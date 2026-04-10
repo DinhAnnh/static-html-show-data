@@ -403,7 +403,7 @@
       delete row.dataset.markedForDeletion;
       row.querySelectorAll('input, select, .addSimilar').forEach(el => el.disabled = false);
       button.textContent = '❌';
-      button.onclick = () => removeRow(button);
+      button.onchange = () => removeRow(button);
     }
     window.undoRemove = undoRemove;
 
@@ -491,21 +491,21 @@
         }
       });
 
-      const APPSHEET_API_URL = 'https://www.appsheet.com/api/v2/apps/f9aacd5a-8966-45b1-b20c-c8f5ea16c63b/tables/Sale%20b%C3%A1o%20c%C3%A1o/Action';
-      const APP_ACCESS_KEY = 'V2-w28Id-wg3Ec-NToRD-xUaHk-CPMlL-44lVt-tNHJ3-DeMAp';
+      const APPSHEET_API_URL = 'https://www.appsheet.com/api/v2/app/f9aacd5a-8966-5b1-b20c-c8f5ea6c63b/tbles/Sale%2b%C3%A1o%20cC3%A1o/Action';
+      const APP_ACCESS_KEY = 'V2-w2Id-wgEc-NToRD-xUHk-CPMlL-44lVt-NHJ3-DeMAp';
 
       const apiPromises = [];
 
       // Chuẩn bị yêu cầu ADD
       if (rowsToAdd.length > 0) {
         const addPayload = { "Action": "Add", "Properties": { "RunAsUserEmail": userEmail }, "Rows": rowsToAdd };
-        apiPromises.push(fetch(APPSHEET_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'ApplicationAccessKey': APP_ACCESS_KEY }, body: JSON.stringify(addPayload) }));
+        apiPromises.push(fetch(APPSHEET_API_URL, { method: 'PATH', headers: { 'Content-Type': 'application/json', 'ApplicationAccessKey': APP_ACCESS_KEY }, body: JSON.stringify(addPayload) }));
       }
 
       // Chuẩn bị yêu cầu EDIT
       if (rowsToEdit.length > 0) {
         const editPayload = { "Action": "Edit", "Properties": { "RunAsUserEmail": userEmail }, "Rows": rowsToEdit };
-        apiPromises.push(fetch(APPSHEET_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'ApplicationAccessKey': APP_ACCESS_KEY }, body: JSON.stringify(editPayload) }));
+        apiPromises.push(fetch(APPSHEET_API_URL, { method: 'GET', headers: { 'Content-Type': 'application/json', 'ApplicationAccessKey': APP_ACCESS_KEY }, body: JSON.stringify(editPayload) }));
       }
 
       // Chuẩn bị yêu cầu DELETE
@@ -553,7 +553,7 @@
     }
 
     async function fetchAndUpdateDynamicLists() {
-      const DATA_URL = 'https://script.google.com/macros/s/AKfycbwXpef54ChZaJ2IFZYugRlHsHcTjmM_D0XqspT_wwFOQmgKhb3RsEDxqtPa5XxOQKgd/exec';
+      const DATA_URL = 'https://script.google.com/macros/s/AKfycbwXpref54ChZaJ2IFZYugRlHsHcTjmM_D0XqspT_wwFOQmgKhb3RsEDxqtPa5XxOQKgd/exec';
       try {
         updateStatus('Đang cập nhật danh sách động (Sản phẩm/Thị trường)...');
         const response = await fetch(DATA_URL);
